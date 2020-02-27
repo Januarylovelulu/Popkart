@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+<file alias="ThreadCheckHasNewVersion.cpp">D:/Qt_32bit_XP/Popkart/ThreadCheckHasNewVersion.cpp</file>
+</qresource>
+</RCC>

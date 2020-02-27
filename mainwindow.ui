@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>605</width>
+    <height>635</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>291</width>
+      <height>561</height>
+     </rect>
+    </property>
+    <property name="openExternalLinks">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="changeCar">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>140</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查找车辆代码</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="carCode">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>10</y>
+      <width>271</width>
+      <height>55</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>输入数字切换,名字查代码</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startGame">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>510</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始游戏</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>140</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="maxCount">
+     <number>2147483640</number>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
+    </property>
+    <item>
+     <property name="text">
+      <string>更改车辆</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改角色</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改飞宠</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改喷漆</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改车牌</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改宠物</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改服饰</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改眼镜</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改气球</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改手杖</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改头饰</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改炫光</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改印记</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更改名喷</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="adPicture">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>222</y>
+      <width>270</width>
+      <height>270</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>游戏分辨率</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="seamlessTurnOn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>510</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>打开无缝</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="carChangeShow">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>83</y>
+      <width>271</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_icon">
+    <property name="geometry">
+     <rect>
+      <x>255</x>
+      <y>10</y>
+      <width>46</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>adPicture</zorder>
+   <zorder>textBrowser</zorder>
+   <zorder>changeCar</zorder>
+   <zorder>carCode</zorder>
+   <zorder>startGame</zorder>
+   <zorder>comboBox</zorder>
+   <zorder>seamlessTurnOn</zorder>
+   <zorder>carChangeShow</zorder>
+   <zorder>label_icon</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>605</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>菜单</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="changeVersion"/>
+    <addaction name="separator"/>
+    <addaction name="changeBackgroundPic"/>
+    <addaction name="separator"/>
+    <addaction name="searchQuestion"/>
+    <addaction name="separator"/>
+    <addaction name="minishow"/>
+    <addaction name="separator"/>
+    <addaction name="quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>改装(重置)</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="startRefit"/>
+    <addaction name="separator"/>
+    <addaction name="startRepair"/>
+    <addaction name="separator"/>
+    <addaction name="resetPPConfig"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>截图/视频</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="screenShotPath"/>
+    <addaction name="separator"/>
+    <addaction name="vedioPath"/>
+    <addaction name="separator"/>
+    <addaction name="shadowPath"/>
+    <addaction name="separator"/>
+    <addaction name="shadowDelete"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>设置选项</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="setting"/>
+    <addaction name="separator"/>
+    <addaction name="changeShortcut"/>
+    <addaction name="separator"/>
+    <addaction name="seamlessSetting"/>
+    <addaction name="separator"/>
+    <addaction name="gameDPI"/>
+    <addaction name="separator"/>
+    <addaction name="update"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+  </widget>
+  <action name="openPath">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/normal.png</normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/normal.png</iconset>
+   </property>
+   <property name="text">
+    <string>选择运行文件</string>
+   </property>
+  </action>
+  <action name="changeBackgroundPic">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/press.png</normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/press.png</iconset>
+   </property>
+   <property name="text">
+    <string>更换背景图片</string>
+   </property>
+  </action>
+  <action name="startRefit">
+   <property name="icon">
+    <iconset>
+     <normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/normal.png</normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/normal.png</iconset>
+   </property>
+   <property name="text">
+    <string>改装器</string>
+   </property>
+  </action>
+  <action name="startRepair">
+   <property name="icon">
+    <iconset>
+     <normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/press.png</normaloff>../build-Popkart-Desktop_Qt_5_9_1_MSVC2015_64bit-Release/Log/press.png</iconset>
+   </property>
+   <property name="text">
+    <string>重置改装</string>
+   </property>
+  </action>
+  <action name="screenShotPath">
+   <property name="text">
+    <string>截图文件夹</string>
+   </property>
+  </action>
+  <action name="vedioPath">
+   <property name="text">
+    <string>视频文件夹</string>
+   </property>
+  </action>
+  <action name="shadowPath">
+   <property name="text">
+    <string>影子文件夹</string>
+   </property>
+  </action>
+  <action name="shadowDelete">
+   <property name="text">
+    <string>删除影子</string>
+   </property>
+  </action>
+  <action name="setting">
+   <property name="text">
+    <string>设置选项</string>
+   </property>
+  </action>
+  <action name="changeShortcut">
+   <property name="text">
+    <string>快捷键更改</string>
+   </property>
+  </action>
+  <action name="seamlessSetting">
+   <property name="text">
+    <string>无缝设置</string>
+   </property>
+  </action>
+  <action name="gameDPI">
+   <property name="text">
+    <string>游戏分辨率</string>
+   </property>
+  </action>
+  <action name="searchQuestion">
+   <property name="text">
+    <string>问题搜索(帮助)</string>
+   </property>
+  </action>
+  <action name="changeVersion">
+   <property name="text">
+    <string>切换游戏版本</string>
+   </property>
+  </action>
+  <action name="minishow">
+   <property name="text">
+    <string>最小化到托盘</string>
+   </property>
+  </action>
+  <action name="quit">
+   <property name="text">
+    <string>退出启动器</string>
+   </property>
+  </action>
+  <action name="resetPPConfig">
+   <property name="text">
+    <string>重置PPConfig</string>
+   </property>
+  </action>
+  <action name="update">
+   <property name="text">
+    <string>检查更新</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

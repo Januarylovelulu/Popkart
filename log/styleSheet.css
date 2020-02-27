@@ -1,0 +1,97 @@
+﻿QPushButton{  
+    border-style:none;  
+    padding:10px; 
+	background:rgb(25,255,255,60);
+	border-radius:15px;
+    }  
+QPushButton:hover{  
+    color:#FFFFFF;  
+    background:rgb(25,255,25,100);
+	}  
+QPushButton:pressed{  
+    color:#A0DAFB;  
+    background:#F4AF57;
+	}  
+QTextBrowser{
+	background:rgb(255,255,255,80);
+	border-radius:15px;
+	}
+QLineEdit{
+	background:rgb(255,255,255,60);
+	border-radius:15px;
+	}
+QLabel{
+	background:rgb(255,255,255,120);
+	border-radius:15px;
+}
+QRadioButton{
+	background:rgb(255,255,255,120);
+	border-radius:15px;
+}
+QCheckBox{
+	background:rgb(255,255,255,120);
+        border-radius:15px;
+}
+QComboBox{
+        background:rbg(0,0,0,160);
+        border-radius:15px;
+	color:white;
+}
+QComboBox::drop-down{
+	width: 30px;
+	height:30px;
+        subcontrol-position:center right;
+}
+QComboBox::down-arrow {
+        image:url(./picture/normal.png);
+}
+QComboBox::down-arrow:pressed {
+        image:url(./picture/press.png);
+}
+QAbstractItemView{
+    selection-background-color:black;  
+ 	selection-color::#000000;
+	background:rgb(255,255,255,80);
+	outline: 0px;
+}
+
+QMenu {  
+    background-color:rgb(25,255,255,100);  
+        color:white;
+    border:0px solid red;
+    margin:3px;
+}  
+  
+QMenu::item {  
+    background-color:transparent;  
+    padding:2 2 2 2px;  
+    border:2px solid transparent;
+}  
+
+QMenu::item:selected {  
+    background-color:#654321;  
+    border-color:black;  
+    background:rgba(100,100,100,150);  
+}  
+
+QMenu::separator {  
+    height:1px;  
+    background:lightblue;  
+}  
+
+QMenuBar {  
+    background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1,stop:0 #CCCCCC, stop:1 #444444);
+}  
+  
+QMenuBar::item {  
+    spacing:auto;  
+    padding:10 30px;  
+    background:transparent;  
+    border-radius:16px;
+    border:2px solid transparent;
+}  
+
+QMenuBar::item:selected {
+    border-color:black;  
+    background:rgba(150,150,150,150);  
+}  
