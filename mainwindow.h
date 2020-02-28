@@ -16,6 +16,7 @@
 #include <QPainter>
 #include <QBitmap>
 #include <QMouseEvent>
+#include <QKeyEvent>
 #include <Windows.h>
 #include "shortcutchange.h"
 #include "setting.h"
@@ -95,6 +96,7 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
 
 private:

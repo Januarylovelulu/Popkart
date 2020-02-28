@@ -1251,6 +1251,15 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    //  快捷键，使回车就能换车
+    if(event->key() == Qt::Key_Return){
+        if(!ui->carCode->text().isEmpty() && !ui->carCode->text().contains("输入数字"))
+            on_changeCar_clicked();
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(myFile.isExeRunning("kartRider.exe"))
@@ -1425,11 +1434,12 @@ void MainWindow::on_getReturnHasNewVersion(bool have,QStringList htmlList)
         QMessageBox box(this);
         box.addButton("确定下载(推荐)",QMessageBox::YesRole);
         box.addButton("取消下载",QMessageBox::NoRole);
-        box.setText("检测到新版本启动器\n\n"
-                    "最新版本代号：V"+htmlList.at(1)+"\n"
-                    "当前版本代号：V"+QString::number(this->version)+"\n\n"
-                    "是否下载新版本？\n\n"
-                    "启动器已内置下载器，建议下载");
+        box.setText("<p style='font-size:14px'>"
+                    "检测到新版本启动器<br><br>"
+                    "最新版本代号：V"+htmlList.at(1)+"<br>"
+                    "当前版本代号：V"+QString::number(this->version)+"<br><br>"
+                    +QString(htmlList.at(3)).replace("^^","<br>")+
+                    "</p>");
         box.setIconPixmap(QPixmap("./picture/thanks.png"));
         int result=box.exec();
         if(result == 0)

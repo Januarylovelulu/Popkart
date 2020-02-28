@@ -44,6 +44,12 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
     ui->pushButton_10->setEnabled(true);
     ui->pushButton_11->setEnabled(true);
     ui->pushButton_12->setEnabled(true);
+    ui->pushButton_21->setEnabled(false);
+    ui->pushButton_22->setEnabled(false);
+    ui->pushButton_23->setEnabled(false);
+    ui->pushButton_24->setEnabled(false);
+    ui->pushButton_25->setEnabled(false);
+    ui->pushButton_26->setEnabled(false);
 
     QString str = settings->value("settings").toString();
     if(!str.isEmpty())
@@ -67,6 +73,12 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         ui->pushButton_10->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_11->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_12->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_21->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_22->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_23->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_24->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_25->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_26->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_close->setStyleSheet(QString("background:rgb(255,100,100,%1);").arg(strList.at(5)));
         ui->pushButton_selectPath->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         this->setWindowOpacity(QString(strList.at(6)).toDouble()/100.0);
@@ -100,6 +112,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         {
             ui->lineEdit_1->setText(path);
             ui->pushButton_1->setEnabled(true);
+            ui->pushButton_21->setEnabled(true);
             ui->pushButton_7->setEnabled(false);
             isHaveGame[checkPath(path)-1]=true;
         }
@@ -113,6 +126,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         {
             ui->lineEdit_2->setText(path);
             ui->pushButton_2->setEnabled(true);
+            ui->pushButton_22->setEnabled(true);
             ui->pushButton_8->setEnabled(false);
             isHaveGame[checkPath(path)-1]=true;
         }
@@ -126,6 +140,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         {
             ui->lineEdit_3->setText(path);
             ui->pushButton_3->setEnabled(true);
+            ui->pushButton_23->setEnabled(true);
             ui->pushButton_9->setEnabled(false);
             isHaveGame[checkPath(path)-1]=true;
         }
@@ -139,6 +154,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         {
             ui->lineEdit_4->setText(path);
             ui->pushButton_4->setEnabled(true);
+            ui->pushButton_24->setEnabled(true);
             ui->pushButton_10->setEnabled(false);
             isHaveGame[checkPath(path)-1]=true;
         }
@@ -152,6 +168,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         {
             ui->lineEdit_5->setText(path);
             ui->pushButton_5->setEnabled(true);
+            ui->pushButton_25->setEnabled(true);
             ui->pushButton_11->setEnabled(false);
             isHaveGame[checkPath(path)-1]=true;
         }
@@ -165,6 +182,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         {
             ui->lineEdit_6->setText(path);
             ui->pushButton_6->setEnabled(true);
+            ui->pushButton_26->setEnabled(true);
             ui->pushButton_12->setEnabled(false);
             isHaveGame[checkPath(path)-1]=true;
         }
@@ -241,12 +259,12 @@ void ChangeVersion::on_pushButton_selectPath_clicked()
     QString path=str.at(0);
     int version=checkPath(path);
     switch (version) {
-    case 1:ui->lineEdit_1->setText(path);ui->pushButton_1->setEnabled(true);ui->pushButton_7->setEnabled(false);settings->setValue("Path2.0",path);break;
-    case 2:ui->lineEdit_2->setText(path);ui->pushButton_2->setEnabled(true);ui->pushButton_8->setEnabled(false);settings->setValue("Path2.1",path);break;
-    case 3:ui->lineEdit_3->setText(path);ui->pushButton_3->setEnabled(true);ui->pushButton_9->setEnabled(false);settings->setValue("Path3.0",path);break;
-    case 4:ui->lineEdit_4->setText(path);ui->pushButton_4->setEnabled(true);ui->pushButton_10->setEnabled(false);settings->setValue("PathPSM",path);break;
-    case 5:ui->lineEdit_5->setText(path);ui->pushButton_5->setEnabled(true);ui->pushButton_11->setEnabled(false);settings->setValue("PathYouHua",path);break;
-    case 6:ui->lineEdit_6->setText(path);ui->pushButton_6->setEnabled(true);ui->pushButton_12->setEnabled(false);settings->setValue("PathJinHua",path);break;
+    case 1:ui->lineEdit_1->setText(path);ui->pushButton_1->setEnabled(true);ui->pushButton_21->setEnabled(true);ui->pushButton_7->setEnabled(false);settings->setValue("Path2.0",path);break;
+    case 2:ui->lineEdit_2->setText(path);ui->pushButton_2->setEnabled(true);ui->pushButton_22->setEnabled(true);ui->pushButton_8->setEnabled(false);settings->setValue("Path2.1",path);break;
+    case 3:ui->lineEdit_3->setText(path);ui->pushButton_3->setEnabled(true);ui->pushButton_23->setEnabled(true);ui->pushButton_9->setEnabled(false);settings->setValue("Path3.0",path);break;
+    case 4:ui->lineEdit_4->setText(path);ui->pushButton_4->setEnabled(true);ui->pushButton_24->setEnabled(true);ui->pushButton_10->setEnabled(false);settings->setValue("PathPSM",path);break;
+    case 5:ui->lineEdit_5->setText(path);ui->pushButton_5->setEnabled(true);ui->pushButton_25->setEnabled(true);ui->pushButton_11->setEnabled(false);settings->setValue("PathYouHua",path);break;
+    case 6:ui->lineEdit_6->setText(path);ui->pushButton_6->setEnabled(true);ui->pushButton_26->setEnabled(true);ui->pushButton_12->setEnabled(false);settings->setValue("PathJinHua",path);break;
     default:;
     }
     if(myFile.isFileExist("Qt5Widgets.dll",path))
@@ -303,23 +321,23 @@ int ChangeVersion::checkVersion(QString str)
         return 0;
     }
 
-    if(myFile.isFileExist("【跑友公社】优化版·超高速改装文件.exe",str)||myFile.isFileExist("优化版标志.txt",str))
+    if(myFile.isFileExist("【跑友公社】优化版·超高速改装文件.exe",str)||myFile.isFileExist("优化版标志.txt",str)||myFile.isFileExist("优化版标志",str))
     {
         return 5;
     }
-    else if(myFile.isFileExist("mav.dat",str)||myFile.isFileExist("进化版标志.txt",str))
+    else if(myFile.isFileExist("mav.dat",str)||myFile.isFileExist("进化版标志.txt",str)||myFile.isFileExist("进化版标",str))
     {
         return 6;
     }
-    else if(myFile.isFileExist("Uninstall.exe",str)||myFile.isFileExist("PSM版标志.txt",str))
+    else if(myFile.isFileExist("Uninstall.exe",str)||myFile.isFileExist("PSM版标志.txt",str)||myFile.isFileExist("PSM版标志",str))
     {
         return 4;
     }
-    else if(myFile.isFileExist("KartRiderCN.ini",str)||myFile.isFileExist("2.1版标志.txt",str))
+    else if(myFile.isFileExist("KartRiderCN.ini",str)||myFile.isFileExist("2.1版标志.txt",str)||myFile.isFileExist("2.1版标志",str))
     {
         return 2;
     }
-    else if(myFile.isFileExist("NanumGothicBold.ttf",str)||myFile.isFileExist("2.0版标志.txt",str))
+    else if(myFile.isFileExist("NanumGothicBold.ttf",str)||myFile.isFileExist("2.0版标志.txt",str)||myFile.isFileExist("2.0版标志",str))
     {
         return 1;
     }
@@ -423,18 +441,30 @@ void ChangeVersion::setPushButton(bool on)
 {
     if(on == true)
     {
-        if(ui->lineEdit_1->text().isEmpty())
+        if(ui->lineEdit_1->text().isEmpty()){
             ui->pushButton_7->setEnabled(on);
-        if(ui->lineEdit_2->text().isEmpty())
+            ui->pushButton_21->setEnabled(!on);
+        }
+        if(ui->lineEdit_2->text().isEmpty()){
             ui->pushButton_8->setEnabled(on);
-        if(ui->lineEdit_3->text().isEmpty())
+            ui->pushButton_22->setEnabled(!on);
+        }
+        if(ui->lineEdit_3->text().isEmpty()){
             ui->pushButton_9->setEnabled(on);
-        if(ui->lineEdit_4->text().isEmpty())
+            ui->pushButton_23->setEnabled(!on);
+        }
+        if(ui->lineEdit_4->text().isEmpty()){
             ui->pushButton_10->setEnabled(on);
-        if(ui->lineEdit_5->text().isEmpty())
+            ui->pushButton_24->setEnabled(!on);
+        }
+        if(ui->lineEdit_5->text().isEmpty()){
             ui->pushButton_11->setEnabled(on);
-        if(ui->lineEdit_6->text().isEmpty())
+            ui->pushButton_25->setEnabled(!on);
+        }
+        if(ui->lineEdit_6->text().isEmpty()){
             ui->pushButton_12->setEnabled(on);
+            ui->pushButton_26->setEnabled(!on);
+        }
     }
     else
     {
@@ -444,6 +474,12 @@ void ChangeVersion::setPushButton(bool on)
         ui->pushButton_10->setEnabled(on);
         ui->pushButton_11->setEnabled(on);
         ui->pushButton_12->setEnabled(on);
+        ui->pushButton_21->setEnabled(on);
+        ui->pushButton_22->setEnabled(on);
+        ui->pushButton_23->setEnabled(on);
+        ui->pushButton_24->setEnabled(on);
+        ui->pushButton_25->setEnabled(on);
+        ui->pushButton_26->setEnabled(on);
     }
 }
 
@@ -520,4 +556,34 @@ void ChangeVersion::download(int cmd)
 void ChangeVersion::on_pushButton_close_clicked()
 {
     this->close();
+}
+
+void ChangeVersion::on_pushButton_21_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_1->text());
+}
+
+void ChangeVersion::on_pushButton_22_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_2->text());
+}
+
+void ChangeVersion::on_pushButton_23_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_3->text());
+}
+
+void ChangeVersion::on_pushButton_24_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_4->text());
+}
+
+void ChangeVersion::on_pushButton_25_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_5->text());
+}
+
+void ChangeVersion::on_pushButton_26_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_6->text());
 }

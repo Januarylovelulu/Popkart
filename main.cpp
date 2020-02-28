@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setStyleSheet(getQssContent());
 
-    double version=3.62;
+    double version=3.63;
 
     QPixmap pixmap("./picture/loading.png");
     QPixmap scaledPixmap = pixmap.scaled(500,500,Qt::KeepAspectRatio);

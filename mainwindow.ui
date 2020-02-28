@@ -42,6 +42,9 @@
     <property name="text">
      <string>查找车辆代码</string>
     </property>
+    <property name="shortcut">
+     <string/>
+    </property>
    </widget>
    <widget class="QLineEdit" name="carCode">
     <property name="enabled">
@@ -259,7 +262,7 @@
      <x>0</x>
      <y>0</y>
      <width>605</width>
-     <height>23</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
