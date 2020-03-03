@@ -24,6 +24,7 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
 
     this->version=version;
 
+    ui->textBrowser->setFocusPolicy(Qt::NoFocus);
     ui->textBrowser->insertPlainText("启动器版本:"+QString::number(version)+"\n"
                                      "作者：");
     ui->textBrowser->setTextColor("red");
@@ -41,7 +42,6 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
     ui->label_icon->hide();
 
     thisWindowTitle="游戏启动器 V"+QString::number(version);
-
     if(myFile.isThisExeAlreadyOPen())
     {
         QMessageBox box;
@@ -49,6 +49,7 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
         box.setText("已经有此软件运行!");
         box.addButton("好的",QMessageBox::RejectRole);
         box.exec();
+
         exit(0);
     }
 
@@ -160,6 +161,7 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
 
     //menu菜单栏
     connect(ui->changeVersion,&QAction::triggered,this,&MainWindow::on_changeVersion);
+    connect(ui->enterChatRoom,&QAction::triggered,this,&MainWindow::on_enterChatRoom);
     connect(ui->changeBackgroundPic,&QAction::triggered,this,&MainWindow::on_changeBackgroundPic);
     connect(ui->searchQuestion,&QAction::triggered,this,&MainWindow::on_searchQuestion);
     connect(ui->minishow,&QAction::triggered,this,&MainWindow::on_miniShow);
@@ -225,6 +227,10 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
         threadCheckHasNewVersion->start();
         ui->textBrowser->insertPlainText("\n正在检查是否有新版本\n");
     }
+
+    client = new QTcpSocket(this);
+    client->connectToHost(localHostNetwork,16161);
+    connect(client,&QTcpSocket::readyRead,this,&MainWindow::on_getResFromTcp);
 }
 
 MainWindow::~MainWindow()
@@ -338,6 +344,20 @@ void MainWindow::on_changeVersion()
                                      "②版本切换页面关闭\n\n"
                                      "当前游戏版本："+checkVersion()+"\n");
     }
+}
+
+void MainWindow::on_enterChatRoom()
+{
+    if(!chatRoom)
+        delete chatRoom;
+    chatRoom = new ChatRoom(this,client);
+    client->connectToHost(localHostNetwork,16161);
+    connect(this,&MainWindow::on_postResFromTcp,chatRoom,&ChatRoom::on_getMsg);
+    //向服务端发送数据
+    client->write("all");
+
+    chatRoom->exec();
+    delete chatRoom;
 }
 
 void MainWindow::on_changeBackgroundPic()
@@ -832,6 +852,9 @@ void MainWindow::adFunction(int x)
     {
         on_resetPPConfig();
     }
+    else if(cmd=="打开聊天室"){
+        on_enterChatRoom();
+    }
 }
 
 void MainWindow::shortcutBind()
@@ -1120,7 +1143,7 @@ void MainWindow::on_changeCar_clicked()
         int times=0;
         for(int x=0;x<strList.length();x++)
         {
-            if(ui->carCode->text()=="help")
+            if(ui->carCode->text().toLower()=="help" || ui->carCode->text().toLower()=="all")
             {
                 if(QString(strList.at(x)).contains("：",Qt::CaseInsensitive))
                 {
@@ -1254,8 +1277,8 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     //  快捷键，使回车就能换车
-    if(event->key() == Qt::Key_Return){
-        if(!ui->carCode->text().isEmpty() && !ui->carCode->text().contains("输入数字"))
+    if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter){
+        if(!ui->carCode->text().isEmpty() && !ui->carCode->text().contains("输入") && ui->carCode->hasFocus())
             on_changeCar_clicked();
     }
 }
@@ -1465,6 +1488,20 @@ void MainWindow::on_getReturnHasNewVersion(bool have,QStringList htmlList)
             ui->textBrowser->insertPlainText("未接入互联网！\n");
         else
             ui->textBrowser->insertPlainText("当前已是最新版本！\n");
+    }
+}
+
+void MainWindow::on_getResFromTcp()
+{
+    QByteArray msg=client->readAll();
+    QTextCodec *codec = QTextCodec::codecForName("GB18030");
+    QStringList msgList = codec->toUnicode(msg).split("&*&");
+    if(msgList.at(0)!="heart"){
+        emit on_postResFromTcp(QString::fromLocal8Bit(msg));
+        // system全体广播
+        if(msgList.at(0)=="system"){
+
+        }
     }
 }
 

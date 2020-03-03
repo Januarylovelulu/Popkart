@@ -339,6 +339,16 @@ QStringList MyNetwork::getIp()
     return strList;
 }
 
+QString MyNetwork::getOutIp()
+{
+    QString req = "http://www.3322.org/dyndns/getip";
+    QString res = getHtmlContent(req);
+    res.remove("\n");
+    res.remove("\r");
+    res.remove(" ");
+    return res;
+}
+
 void MyNetwork::getDownloadFileInfo(QString url)
 {
     if(!judgElement("url",url))

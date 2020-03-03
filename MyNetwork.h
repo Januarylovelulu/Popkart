@@ -21,7 +21,8 @@ public:
     MyNetwork(QString url=nullptr);
     ~MyNetwork();
 
-    QStringList getIp();//返回当前存在的IPv4地址
+    QStringList getIp();//返回当前内网的IPv4地址
+    QString getOutIp();//返回当前外网的IPv4地址
 
     //获取链接地址的文件信息
     //绑定名为returnUrlInfo的signal，或在等待一段时间后使用getUrlFIleInfo读取信息(可能会出现异步的问题)

@@ -17,6 +17,8 @@
 #include <QBitmap>
 #include <QMouseEvent>
 #include <QKeyEvent>
+#include <QTcpSocket>
+#include <QTextCodec>
 #include <Windows.h>
 #include "shortcutchange.h"
 #include "setting.h"
@@ -26,6 +28,7 @@
 #include "ThreadCheckHasNewVersion.h"
 #include "searchquestion.h"
 #include "changeversion.h"
+#include "chatroom.h"
 #include "MyNetwork.h"
 
 namespace Ui {
@@ -48,12 +51,18 @@ public:
 
     void changeVertion_fuction(){on_changeVersion();}//调用private slot中的on_changeVersion();
 
+signals:
+    void on_postResFromTcp(QString); // 将服务端返回的信息传入聊天室界面
+
 public slots:
     void on_getReturnHasNewVersion(bool have, QStringList htmlList);
+    // 获取聊天室服务端返回的信息，
+    void on_getResFromTcp();
     void on_DownloadFinish();
 
 private slots:
     void on_changeVersion();
+    void on_enterChatRoom();
     void on_changeBackgroundPic();
     void on_searchQuestion();
     void on_miniShow();
@@ -155,6 +164,11 @@ private:
     int seamlessTime=10;
 
     int seamlessKey[2]={-1,-1};
+
+    QTcpSocket *client;
+    ChatRoom *chatRoom;
+    QString localHostNetwork="120.79.52.228";
+//    QString localHostNetwork="127.0.0.1";
 
     MyFile myFile;
 };

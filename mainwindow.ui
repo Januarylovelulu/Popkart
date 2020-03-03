@@ -272,6 +272,8 @@
     <addaction name="separator"/>
     <addaction name="changeVersion"/>
     <addaction name="separator"/>
+    <addaction name="enterChatRoom"/>
+    <addaction name="separator"/>
     <addaction name="changeBackgroundPic"/>
     <addaction name="separator"/>
     <addaction name="searchQuestion"/>
@@ -452,6 +454,11 @@
   <action name="update">
    <property name="text">
     <string>检查更新</string>
+   </property>
+  </action>
+  <action name="enterChatRoom">
+   <property name="text">
+    <string>进入聊天室</string>
    </property>
   </action>
  </widget>

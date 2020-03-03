@@ -37,7 +37,8 @@ HEADERS += $$PWD/qxtglobal.h \
     changeversion.h \
     MyNetwork.h \
     download.h \
-    cheackoperatingversion.h
+    cheackoperatingversion.h \
+    chatroom.h
 SOURCES += $$PWD/qxtglobalshortcut.cpp \
     shortcutchange.cpp \
     setting.cpp \
@@ -47,7 +48,8 @@ SOURCES += $$PWD/qxtglobalshortcut.cpp \
     changeversion.cpp \
     MyNetwork.cpp \
     download.cpp \
-    cheackoperatingversion.cpp
+    cheackoperatingversion.cpp \
+    chatroom.cpp
 win32{
     SOURCES += $$PWD/qxtglobalshortcut_win.cpp
     LIBS += -luser32
@@ -75,7 +77,8 @@ FORMS += \
     searchquestion.ui \
     changeversion.ui \
     download.ui \
-    cheackoperatingversion.ui
+    cheackoperatingversion.ui \
+    chatroom.ui
 
 RC_ICONS = icon.ico
 
