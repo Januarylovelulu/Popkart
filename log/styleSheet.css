@@ -16,12 +16,16 @@ QTextBrowser{
 	background:rgb(255,255,255,80);
 	border-radius:15px;
 	}
+QTextEdit{
+        background:rgb(255,255,255,80);
+        border-radius:15px;
+        }
 QLineEdit{
 	background:rgb(255,255,255,60);
-	border-radius:15px;
+        border-radius:10px;
 	}
 QLabel{
-	background:rgb(255,255,255,120);
+        background:rgb(255,255,255,120);
 	border-radius:15px;
 }
 QRadioButton{

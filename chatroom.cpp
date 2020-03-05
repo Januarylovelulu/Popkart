@@ -13,6 +13,26 @@ ChatRoom::ChatRoom(QWidget *parent, QTcpSocket *client) :
 
     settings = new QSettings(QSettings::NativeFormat, QSettings::UserScope, QCoreApplication::organizationName(), QCoreApplication::applicationName());
 
+    QString pathPic=settings->value("picPath").toString();
+    QImage imgBackgroud(pathPic);
+    QPalette palette;
+    palette.setBrush(this->backgroundRole(),
+                     QBrush(imgBackgroud.scaled(this->width(),this->height())));
+    this->setPalette(palette);
+
+    QString str = settings->value("settings").toString();
+    if(!str.isEmpty())
+    {
+        QStringList strList=str.split(";");
+        ui->textBrowser->setStyleSheet(QString("background:rgb(255,255,255,%1);font-size:16px;").arg(strList.at(3)));
+        ui->label_totalPeople->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(3)));
+        qDebug()<<strList.at(3);
+        ui->textEdit->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
+        ui->lineEdit_name->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
+        ui->pushButton_send->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_close->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+    }
+
     if(settings->contains("ClientName")){
         QString name = settings->value("ClientName").toString();
         ui->lineEdit_name->setText(name);
@@ -22,7 +42,8 @@ ChatRoom::ChatRoom(QWidget *parent, QTcpSocket *client) :
     ui->textEdit->setFocus();
     ui->textEdit->installEventFilter(this);//设置完后自动调用其eventFilter函数
 
-    ui->textBrowser->setStyleSheet("font-size:16px;");
+    ui->textBrowser->setOpenLinks(false);
+    connect(ui->textBrowser,SIGNAL(anchorClicked(const QUrl&)),this, SLOT(on_openUrl(const QUrl&)));
 
     connect(&timerWait,&QTimer::timeout,this,&ChatRoom::on_timeroutWait);
 }
@@ -65,6 +86,17 @@ void ChatRoom::on_pushButton_send_clicked()
         ui->lineEdit_name->setFocus();
         return;
     }
+    else if(ui->lineEdit_name->text().contains(" ")){
+        QMessageBox box(this);
+        box.setText("昵称不允许包含空格！\n请重新输入");
+        box.setWindowTitle("提示");
+        box.addButton("确定",QMessageBox::YesRole);
+        box.exec();
+        ui->lineEdit_name->clear();
+        ui->lineEdit_name->setFocus();
+        return;
+    }
+
     if(ui->textEdit->toPlainText().isEmpty())
         return;
 
@@ -95,6 +127,11 @@ void ChatRoom::on_pushButton_close_clicked()
 void ChatRoom::on_timeroutWait()
 {
     ui->pushButton_send->setEnabled(true);
+}
+
+void ChatRoom::on_openUrl(const QUrl &url)
+{
+    QDesktopServices::openUrl(url);
 }
 
 bool ChatRoom::eventFilter(QObject *target, QEvent *event)

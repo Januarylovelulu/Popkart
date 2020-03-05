@@ -30,7 +30,8 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
     ui->textBrowser->setTextColor("red");
     ui->textBrowser->insertPlainText("抚琴曲委婉\n");
     ui->textBrowser->setTextColor("black");
-//    ui->textBrowser->insertPlainText("作者个人的空间：\n");
+    ui->textBrowser->insertPlainText("作者个人的空间：");
+    ui->textBrowser->insertHtml("<a href='https://ruiruiandlulu.online'>点击访问</a><br>");
 //    ui->textBrowser->setTextColor("blue");
 //    ui->textBrowser->insertPlainText("www.ruiruiandlulu.online\n");
 //    ui->textBrowser->setTextColor("black");
@@ -42,16 +43,6 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
     ui->label_icon->hide();
 
     thisWindowTitle="游戏启动器 V"+QString::number(version);
-    if(myFile.isThisExeAlreadyOPen())
-    {
-        QMessageBox box;
-        box.setWindowTitle("已经打开");
-        box.setText("已经有此软件运行!");
-        box.addButton("好的",QMessageBox::RejectRole);
-        box.exec();
-
-        exit(0);
-    }
 
     ifHavePath=false;
 
@@ -98,7 +89,7 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
 
         ui->textBrowser->insertPlainText("\n找到配置文件夹\n游戏版本:"+checkVersion()+"\n");
         ui->label_icon->setPixmap("./picture/"+checkVersion()+".ico");
-//        ui->label_icon->show();
+        ui->label_icon->show();
         ifHavePath=true;
     }
     else if(!localHostPath.isEmpty())
@@ -107,7 +98,7 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
         {
             ui->textBrowser->insertPlainText("\n找到配置文件夹\n游戏版本:"+checkVersion()+"\n");
             ui->label_icon->setPixmap("./picture/"+checkVersion()+".ico");
-//            ui->label_icon->show();
+            ui->label_icon->show();
             ifHavePath=true;
         }
         else
@@ -231,6 +222,10 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
     client = new QTcpSocket(this);
     client->connectToHost(localHostNetwork,16161);
     connect(client,&QTcpSocket::readyRead,this,&MainWindow::on_getResFromTcp);
+    hasNewMessage = false;
+
+    ui->textBrowser->setOpenLinks(false);
+    connect(ui->textBrowser,SIGNAL(anchorClicked(const QUrl&)),this, SLOT(on_openUrl(const QUrl&)));
 }
 
 MainWindow::~MainWindow()
@@ -326,7 +321,7 @@ void MainWindow::on_changeVersion()
         }
         readAdPicture();
         ui->label_icon->setPixmap("./picture/"+checkVersion()+".ico");
-//        ui->label_icon->show();
+        ui->label_icon->show();
     }
     else
     {
@@ -357,7 +352,9 @@ void MainWindow::on_enterChatRoom()
     client->write("all");
 
     chatRoom->exec();
+    hasNewMessage = false;
     delete chatRoom;
+    ui->textBrowser->clear();
 }
 
 void MainWindow::on_changeBackgroundPic()
@@ -960,7 +957,6 @@ void MainWindow::settingChange()
         {
             settingCheckBox[1]=false;
             ui->changeShortcut->setEnabled(false);
-            ui->textBrowser->insertPlainText("\ntest\n");
         }
 
         if(strList.at(2)=="1")
@@ -1496,11 +1492,12 @@ void MainWindow::on_getResFromTcp()
     QByteArray msg=client->readAll();
     QTextCodec *codec = QTextCodec::codecForName("GB18030");
     QStringList msgList = codec->toUnicode(msg).split("&*&");
-    if(msgList.at(0)!="heart"){
-        emit on_postResFromTcp(QString::fromLocal8Bit(msg));
-        // system全体广播
-        if(msgList.at(0)=="system"){
-
+    emit on_postResFromTcp(QString::fromLocal8Bit(msg));
+    // system全体广播
+    if(msgList.at(0)=="system" || msgList.at(0)=="new"){
+        if(hasNewMessage == false){
+            ui->textBrowser->insertHtml("<br>收到新的信息：<a href='打开聊天室'>点击查看</a><br>");
+            hasNewMessage = true;
         }
     }
 }
@@ -1514,6 +1511,14 @@ void MainWindow::on_DownloadFinish()
         settings->setValue("deletePath",myFile.getArgvElements().at(0));
         exit(0);
     }
+}
+
+void MainWindow::on_openUrl(const QUrl &url)
+{
+    if(url.toString()=="打开聊天室")
+        on_enterChatRoom();
+    else
+        QDesktopServices::openUrl(url);
 }
 
 void MainWindow::on_startGame_clicked()

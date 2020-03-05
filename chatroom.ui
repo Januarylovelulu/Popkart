@@ -131,7 +131,7 @@ p, li { white-space: pre-wrap; }
         </sizepolicy>
        </property>
        <property name="text">
-        <string>发送</string>
+        <string> 发送 </string>
        </property>
       </widget>
      </item>
@@ -144,7 +144,7 @@ p, li { white-space: pre-wrap; }
         </sizepolicy>
        </property>
        <property name="text">
-        <string>关闭</string>
+        <string> 关闭 </string>
        </property>
       </widget>
      </item>

@@ -19,6 +19,7 @@
 #include <QKeyEvent>
 #include <QTcpSocket>
 #include <QTextCodec>
+#include <QSharedMemory>
 #include <Windows.h>
 #include "shortcutchange.h"
 #include "setting.h"
@@ -59,6 +60,9 @@ public slots:
     // 获取聊天室服务端返回的信息，
     void on_getResFromTcp();
     void on_DownloadFinish();
+
+    // textBrowser的链接点击事件
+    void on_openUrl(const QUrl&url);
 
 private slots:
     void on_changeVersion();
@@ -167,6 +171,7 @@ private:
 
     QTcpSocket *client;
     ChatRoom *chatRoom;
+    bool hasNewMessage;
     QString localHostNetwork="120.79.52.228";
 //    QString localHostNetwork="127.0.0.1";
 

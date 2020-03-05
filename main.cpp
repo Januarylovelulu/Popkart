@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setStyleSheet(getQssContent());
 
-    double version=3.7;
+    double version=3.71;
 
     QPixmap pixmap("./picture/loading.png");
     QPixmap scaledPixmap = pixmap.scaled(500,500,Qt::KeepAspectRatio);
@@ -119,6 +119,17 @@ int main(int argc, char *argv[])
     }
 
     splash.showMessage("正在加载程序...", Qt::AlignBottom|Qt::AlignLeft, Qt::red);
+
+    QSharedMemory singleton(a.applicationName());
+    if(!singleton.create(1))  {    //已经存在的
+        QMessageBox box;
+        box.setWindowTitle("已经打开");
+        box.setText("已经有此软件运行!");
+        box.addButton("好的",QMessageBox::RejectRole);
+        box.exec();
+
+        exit(0);
+    }
 
     MainWindow w(argc,argv,version);
     w.show();

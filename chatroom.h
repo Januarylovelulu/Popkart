@@ -32,6 +32,8 @@ private slots:
 
     void on_timeroutWait();
 
+    void on_openUrl(const QUrl&url);
+
 protected:
     bool eventFilter(QObject *target, QEvent *event);//事件过滤器
 
