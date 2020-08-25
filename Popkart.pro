@@ -80,9 +80,12 @@ FORMS += \
     cheackoperatingversion.ui \
     chatroom.ui
 
+RC_FILE = GameStart.rc
+
 RC_ICONS = icon.ico
 
 RESOURCES += \
     resource.qrc
+
 
 

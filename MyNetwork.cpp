@@ -143,7 +143,9 @@ void MyNetwork::httpFinished()
     }
     else {
         emit returnDownloadError("文件写入失败");
+        emit returnDownloadStatute("下载失败！");
         stopDownload();
+        return ;
     }
     fileDownload->close();
     stopDownload();

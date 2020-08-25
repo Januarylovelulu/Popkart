@@ -9,7 +9,6 @@ SearchQuestion::SearchQuestion(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("搜索解决办法");
-    this->setMaximumSize(this->width(),800);
     this->setMinimumSize(this->width(),this->height());
 
     settings = new QSettings(QSettings::NativeFormat, QSettings::UserScope, QCoreApplication::organizationName(), QCoreApplication::applicationName());
@@ -45,28 +44,44 @@ SearchQuestion::~SearchQuestion()
 QStringList SearchQuestion::searchQuestion(QString keyWords)
 {
     QStringList resultList;
-    QStringList readList=myFile.readTextFile("问题库.txt","./问题库").split("\n",QString::SkipEmptyParts);
-    for(int x=0;x<readList.length()-1;x++)
-    {
-        if(readList.at(x).contains("Q：") && readList.at(x+1).contains("A："))
-        {
-            if(readList.at(x).contains(keyWords,Qt::CaseInsensitive))
-            {
-                int ax=x+1;
-                QString str;
-                str+=readList.at(x)+"\n";
-                while(!readList.at(ax).contains("Q："))
-                {
-                    str+=readList.at(ax)+"\n";
-                    ax++;
-                    if(ax>=readList.length())
-                        break;
-                }
-                str+="\n";
-                resultList.append(str);
+    QString text = myFile.readTextFile("问题库.html","./问题库",true);
+//    text.remove("./图片/");
+    if(text.indexOf("./图片/") < 20) {
+        text.remove(text.indexOf("./图片/"),5);
+    }
+    text.remove("white-space: pre-wrap;");
+    QString len = "background-color:#ffffff;";
+    while(text.indexOf("background-color:#",Qt::CaseInsensitive) != -1){
+        text.remove(text.indexOf("background-color:#",Qt::CaseInsensitive),len.length());
+    }
+
+    text.replace("./图片/","./问题库/图片/");
+
+    int span = text.indexOf("<span ");
+
+    text.replace("</span>","</span>/n");
+//    text.replace("<span","/n<span");
+
+    head = text.left(span);
+    end = "</p></body></html>";
+
+    text.remove(0,span);
+    text.remove("</p></body></html>");
+
+    QStringList pList = text.split("/n",QString::SkipEmptyParts);
+    for(int x = 0;x < pList.length()-1;x++){
+        QString str = pList[x];
+        if(str.contains(">Q") && str.contains(keyWords)) {
+            QString resultTmp = str;
+            x++;
+            while(x < pList.length() && !pList[x].contains(">Q")){
+                resultTmp += pList[x] + "<br>";
+                x++;
             }
+            resultList << resultTmp;
         }
     }
+
     return resultList;
 }
 
@@ -130,15 +145,9 @@ void SearchQuestion::on_pushButton_search_clicked()
         }
         return;
     }
-    for(int x=0;x<resultList.length();x++)
-    {
-        QStringList strList=resultList.at(x).split("\n",QString::SkipEmptyParts);
-        ui->textBrowser->setTextColor(QColor("blue"));
-        ui->textBrowser->insertPlainText("\n"+strList.at(0)+"\n");
-        ui->textBrowser->setTextColor(QColor("black"));
-        for(int y=1;y<strList.length();y++)
-        {
-            ui->textBrowser->insertPlainText(strList.at(y)+"\n");
-        }
+    ui->textBrowser->insertHtml(head);
+    for(QString str : resultList) {
+        ui->textBrowser->insertHtml(str + "<br>");
     }
+    ui->textBrowser->insertHtml(end);
 }

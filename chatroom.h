@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QByteArray>
 #include "MyNetwork.h"
 
 namespace Ui {
@@ -23,7 +24,7 @@ public:
     ~ChatRoom();
 
 public slots:
-    void on_getMsg(QString msg);
+    void on_getMsg(QByteArray msg);
 
 private slots:
     void on_pushButton_send_clicked();

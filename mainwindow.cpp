@@ -24,14 +24,13 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
 
     this->version=version;
 
-    ui->textBrowser->setFocusPolicy(Qt::NoFocus);
     ui->textBrowser->insertPlainText("启动器版本:"+QString::number(version)+"\n"
                                      "作者：");
     ui->textBrowser->setTextColor("red");
     ui->textBrowser->insertPlainText("抚琴曲委婉\n");
     ui->textBrowser->setTextColor("black");
     ui->textBrowser->insertPlainText("作者个人的空间：");
-    ui->textBrowser->insertHtml("<a href='https://ruiruiandlulu.online'>点击访问</a><br>");
+    ui->textBrowser->insertHtml("<a href='http://120.79.52.228'>点击访问</a><br>");
 //    ui->textBrowser->setTextColor("blue");
 //    ui->textBrowser->insertPlainText("www.ruiruiandlulu.online\n");
 //    ui->textBrowser->setTextColor("black");
@@ -86,6 +85,8 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
             settings->setValue("PathYouHua",localHostPath);
         else if(version=="进化")
             settings->setValue("PathJinHua",localHostPath);
+        else if(version=="X")
+            settings->setValue("PathX",localHostPath);
 
         ui->textBrowser->insertPlainText("\n找到配置文件夹\n游戏版本:"+checkVersion()+"\n");
         ui->label_icon->setPixmap("./picture/"+checkVersion()+".ico");
@@ -292,7 +293,7 @@ void MainWindow::on_changeVersion()
     }
     QString path=settings->value("popCarPath").toString();
     ChangeVersion *changeVersion = new ChangeVersion(this);
-    if(changeVersion->isHaveGame[6]==false)
+    if(changeVersion->isHaveGame.last()==false)
     {
         QMessageBox box(this);
         box.addButton("确定",QMessageBox::YesRole);
@@ -349,7 +350,8 @@ void MainWindow::on_enterChatRoom()
     client->connectToHost(localHostNetwork,16161);
     connect(this,&MainWindow::on_postResFromTcp,chatRoom,&ChatRoom::on_getMsg);
     //向服务端发送数据
-    client->write("all");
+    QString msg = QString("all&*&")+QString::number(version);
+    client->write(msg.toLocal8Bit());
 
     chatRoom->exec();
     hasNewMessage = false;
@@ -401,12 +403,19 @@ void MainWindow::on_startRefit()
 
     ui->textBrowser->insertPlainText("\n改装器启动中");
 
+    QString localHostPath = this->localHostPath;
+    if(checkVersion() == "X")
+        localHostPath += "/ppserver";
+
 
     if(myFile.isFileExist("修改器.lnk",localHostPath))
     {
         myFile.deleteFile("修改器.lnk",localHostPath);
     }
-    myFile.createLinkFile("修改器",localHostPath,"修改器.exe",localHostPath);
+    if(checkVersion() == "X")
+        myFile.createLinkFile("修改器",localHostPath,"MC改车器.exe",localHostPath);
+    else
+        myFile.createLinkFile("修改器",localHostPath,"修改器.exe",localHostPath);
 
     if(myFile.openFile("修改器.lnk",localHostPath))
     {
@@ -431,8 +440,13 @@ void MainWindow::on_startRepair()
 
     QString version=checkVersion();
 
+    QString localHostPath = this->localHostPath;
     QString path;
-    if(version=="2.0"||version=="2.1")
+    if(version=="X"){
+        path="./datX";
+        localHostPath += "/ppserver";
+    }
+    else if(version=="2.0"||version=="2.1")
     {
         path="./dat2.0";
     }
@@ -442,26 +456,18 @@ void MainWindow::on_startRepair()
     }
     if(qMess==0)
     {
-        ui->textBrowser->insertPlainText("\n版本："+version+"\n");
-        for(int x=0;x<3;x++)
-        {
-            if(!myFile.isFileExist(QString("Kart%1.dat").arg(x),path))
-            {
-                ui->textBrowser->insertPlainText(QString("Kart%1.dat文件丢失!\n").arg(x));
-                ui->textBrowser->insertPlainText("\n重置改装操作失败!\n");
-                return;
-            }
-        }
-        for(int x=0;x<3;x++)
+        ui->textBrowser->insertPlainText("\n重置改装版本："+version+"\n");
+        QStringList datList = myFile.fileInDirectory(path);
+        for(QString dat : datList)
         {
 //            QString read=myFile.readTextFile(QString("Kart%1.dat").arg(x),path);
-            if(myFile.copyFile(localHostPath,QString("Kart%1.dat").arg(x),path))
+            if(myFile.copyFile(localHostPath,dat,path))
             {
-                ui->textBrowser->insertPlainText(QString("Kart%1.dat文件替换成功!\n").arg(x));
+                ui->textBrowser->insertPlainText(dat + "文件替换成功!\n");
             }
             else
             {
-                ui->textBrowser->insertPlainText(QString("Kart%1.dat文件替换失败!\n").arg(x));
+                ui->textBrowser->insertPlainText(dat + "文件替换失败!\n");
                 ui->textBrowser->insertPlainText("\n重置改装操作失败!\n");
                 return;
             }
@@ -472,6 +478,14 @@ void MainWindow::on_startRepair()
 
 void MainWindow::on_resetPPConfig()
 {
+    if(checkVersion() == "X"){
+        QMessageBox box(this);
+        box.setText("X版本还暂时未适配此功能！");
+        box.addButton("确定",QMessageBox::YesRole);
+        box.exec();
+        return ;
+    }
+
     QMessageBox box(this);
     box.setText("是否重置该游戏版本的PPConfig？");
     box.setInformativeText("推荐换车时，游戏闪退使用");
@@ -629,6 +643,14 @@ void MainWindow::on_seamlessSetting()
 
 void MainWindow::on_gameDPI()
 {
+    if(checkVersion() == "X"){
+        QMessageBox box(this);
+        box.setText("X版本还暂时未适配此功能！");
+        box.addButton("确定",QMessageBox::YesRole);
+        box.exec();
+        return ;
+    }
+
     DPI *dpi=new DPI(this,localHostPath);
     dpi->exec();
     delete dpi;
@@ -692,6 +714,10 @@ QString MainWindow::checkVersion()
     {
         return "进化";
     }
+    else if(myFile.isFileExist("PPServerConfig.ini",str+"/ppserver")||myFile.isFileExist("X版标志.txt",str)||myFile.isFileExist("X版标志",str))
+    {
+        return "X";
+    }
     else if(myFile.isFileExist("Uninstall.exe",str)||myFile.isFileExist("PSM版标志.txt",str))
     {
         return "PSM";
@@ -751,6 +777,8 @@ void MainWindow::readAdPicture()
         versionAd=5;
     else if(version=="进化")
         versionAd=6;
+    else if(version=="X")
+        versionAd=7;
     else
         versionAd=0;
 
@@ -789,7 +817,7 @@ void MainWindow::readAdPicture()
     ui->adPicture->setPixmap(QPixmap("./ad/"+QString::number(choosePic[0])+".png"));
     ui->adPicture->setScaledContents(true);
     ui->adPicture->setMouseTracking(true);
-    ui->adPicture->setCursor (Qt::PointingHandCursor);
+    ui->adPicture->setCursor(Qt::PointingHandCursor);
     changePicRadioBtn[changeThisFlag]->setChecked(true);
 
     startPicTimer.start(500);
@@ -833,7 +861,7 @@ void MainWindow::adFunction(int x)
     }
     else if(cmd=="输出到输出框")
     {
-        if(path.contains("clear the textBrowser"))
+        if(path.contains("clear the textBrowser",Qt::CaseInsensitive))
         {
             path.remove("clear the textBrowser");
             ui->textBrowser->clear();
@@ -851,6 +879,15 @@ void MainWindow::adFunction(int x)
     }
     else if(cmd=="打开聊天室"){
         on_enterChatRoom();
+    }
+    else if(cmd=="输出富文本"){
+        if(path.contains("clear the textBrowser",Qt::CaseInsensitive))
+        {
+            path.remove("clear the textBrowser");
+            ui->textBrowser->clear();
+        }
+        QString str=path.replace("^^","<br>");
+        ui->textBrowser->insertHtml(str+"<br>");
     }
 }
 
@@ -999,6 +1036,12 @@ void MainWindow::on_changeCar_clicked()
 
     if(ui->changeCar->text().contains("更改"))
     {
+
+        if(checkVersion() == "X"){
+            ui->carChangeShow->setText("X系列暂时只能查询");
+            return ;
+        }
+
         QString code;
         if(ui->comboBox->currentText()=="更改车辆")
         {
@@ -1344,7 +1387,7 @@ void MainWindow::on_carCode_textChanged(const QString &arg1)
     code.replace("更改","");
 
     QString str=ui->carCode->text();
-    if(str.length()>=6||str.isEmpty())
+    if(str.length()>=6 || str.isEmpty())
     {
         ui->changeCar->setText("查找"+code+"代码");
         return;
@@ -1492,7 +1535,8 @@ void MainWindow::on_getResFromTcp()
     QByteArray msg=client->readAll();
     QTextCodec *codec = QTextCodec::codecForName("GB18030");
     QStringList msgList = codec->toUnicode(msg).split("&*&");
-    emit on_postResFromTcp(QString::fromLocal8Bit(msg));
+//    emit on_postResFromTcp(QString::fromLocal8Bit(msg));
+    emit on_postResFromTcp(msg);
     // system全体广播
     if(msgList.at(0)=="system" || msgList.at(0)=="new"){
         if(hasNewMessage == false){

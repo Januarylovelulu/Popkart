@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.0.3, 2020-03-05T22:43:01. -->
+<!-- Written by QtCreator 4.0.3, 2020-07-17T20:31:48. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -66,7 +66,7 @@
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Qt/Code/Error in &quot; Util.asciify(&quot;build-Popkart-Desktop_Qt_5_6_3_MinGW_32bit-Debug&quot;)&quot;: TypeError: Property 'asciify' of object Core::Internal::UtilsJsExtension(0x359f258) is not a function</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Qt/Code/Error in &quot; Util.asciify(&quot;build-Popkart-Desktop_Qt_5_6_3_MinGW_32bit-Debug&quot;)&quot;: TypeError: Property 'asciify' of object Core::Internal::UtilsJsExtension(0x2dd21c8) is not a function</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -174,7 +174,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Qt/Code/Error in &quot; Util.asciify(&quot;build-Popkart-Desktop_Qt_5_6_3_MinGW_32bit-Profile&quot;)&quot;: TypeError: Property 'asciify' of object Core::Internal::UtilsJsExtension(0x359f258) is not a function</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Qt/Code/Error in &quot; Util.asciify(&quot;build-Popkart-Desktop_Qt_5_6_3_MinGW_32bit-Profile&quot;)&quot;: TypeError: Property 'asciify' of object Core::Internal::UtilsJsExtension(0x2dd21c8) is not a function</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>

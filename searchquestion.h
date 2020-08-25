@@ -28,6 +28,8 @@ private:
 
     QSettings *settings;
     MyFile myFile;
+
+    QString head, end;
 };
 
 #endif // SEARCHQUESTION_H

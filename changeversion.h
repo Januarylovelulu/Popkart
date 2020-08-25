@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QBitmap>
 #include <QMouseEvent>
+#include <QVector>
 #include "MyFile.h"
 #include "MyNetwork.h"
 #include "download.h"
@@ -21,7 +22,7 @@ class ChangeVersion : public QDialog
 
 public:
     explicit ChangeVersion(QWidget *parent = nullptr);
-    bool isHaveGame[7];//是否有游戏,0-5为版本是否ture，6为0-5是否有ture
+    QVector<bool> isHaveGame;//是否有游戏,0-6为版本是否ture，7为0-6是否有ture
     ~ChangeVersion();
 
 protected:
@@ -45,6 +46,8 @@ private slots:
 
     void on_pushButton_6_clicked();
 
+    void on_pushButton_13_clicked();
+
     void on_pushButton_7_clicked();
 
     void on_pushButton_8_clicked();
@@ -56,6 +59,8 @@ private slots:
     void on_pushButton_11_clicked();
 
     void on_pushButton_12_clicked();
+
+    void on_pushButton_14_clicked();
 
     void on_pushButton_close_clicked();
 
@@ -70,6 +75,8 @@ private slots:
     void on_pushButton_25_clicked();
 
     void on_pushButton_26_clicked();
+
+    void on_pushButton_27_clicked();
 
 private:
     Ui::ChangeVersion *ui;

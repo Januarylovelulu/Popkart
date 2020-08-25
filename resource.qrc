@@ -41,12 +41,14 @@
         <file>3.0/更改角色.txt</file>
         <file>3.0/更改车辆.txt</file>
         <file>3.0/更改飞宠.txt</file>
+        <file>log/PPConfig.ini</file>
         <file>log/styleSheet.css</file>
         <file>优化/更改人物.txt</file>
         <file>优化/更改印记.txt</file>
         <file>优化/更改名喷.txt</file>
         <file>优化/更改喷漆.txt</file>
         <file>优化/更改头饰.txt</file>
+        <file>优化/更改宠物.txt</file>
         <file>优化/更改手杖.txt</file>
         <file>优化/更改服饰.txt</file>
         <file>优化/更改气球.txt</file>
@@ -55,7 +57,6 @@
         <file>优化/更改角色.txt</file>
         <file>优化/更改车辆.txt</file>
         <file>优化/更改飞宠.txt</file>
-        <file>优化/更改宠物.txt</file>
         <file>进化/更改印记.txt</file>
         <file>进化/更改喷漆.txt</file>
         <file>进化/更改头饰.txt</file>
@@ -69,6 +70,18 @@
         <file>进化/更改车牌.txt</file>
         <file>进化/更改车辆.txt</file>
         <file>进化/更改飞宠.txt</file>
-        <file>log/PPConfig.ini</file>
+        <file>X/更改印记.txt</file>
+        <file>X/更改喷漆.txt</file>
+        <file>X/更改头饰.txt</file>
+        <file>X/更改宠物.txt</file>
+        <file>X/更改手杖.txt</file>
+        <file>X/更改服饰.txt</file>
+        <file>X/更改气球.txt</file>
+        <file>X/更改炫光.txt</file>
+        <file>X/更改眼镜.txt</file>
+        <file>X/更改角色.txt</file>
+        <file>X/更改车牌.txt</file>
+        <file>X/更改车辆.txt</file>
+        <file>X/更改飞宠.txt</file>
     </qresource>
 </RCC>

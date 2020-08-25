@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setStyleSheet(getQssContent());
 
-    double version=3.71;
+    double version=3.76;
 
     QPixmap pixmap("./picture/loading.png");
     QPixmap scaledPixmap = pixmap.scaled(500,500,Qt::KeepAspectRatio);
@@ -140,7 +140,8 @@ int main(int argc, char *argv[])
             ||settings.contains("Path3.0")
             ||settings.contains("PathPSM")
             ||settings.contains("PathYouHua")
-            ||settings.contains("PathJinHua"))
+            ||settings.contains("PathJinHua")
+            ||settings.contains("PathX"))
     {
         //如果有任何一个路径，do nothing
     }

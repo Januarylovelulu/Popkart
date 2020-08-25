@@ -53,7 +53,7 @@ public:
     void changeVertion_fuction(){on_changeVersion();}//调用private slot中的on_changeVersion();
 
 signals:
-    void on_postResFromTcp(QString); // 将服务端返回的信息传入聊天室界面
+    void on_postResFromTcp(QByteArray); // 将服务端返回的信息传入聊天室界面
 
 public slots:
     void on_getReturnHasNewVersion(bool have, QStringList htmlList);

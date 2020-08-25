@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>520</height>
+    <width>543</width>
+    <height>563</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -20,20 +20,17 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="7" column="4" colspan="2">
-    <widget class="QPushButton" name="pushButton_close">
+   <item row="6" column="1">
+    <widget class="QLineEdit" name="lineEdit_6">
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>39</height>
+       <height>45</height>
       </size>
-     </property>
-     <property name="text">
-      <string>关闭窗口</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="4">
+   <item row="8" column="0" colspan="4">
     <widget class="QPushButton" name="pushButton_selectPath">
      <property name="minimumSize">
       <size>
@@ -46,13 +43,29 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="lineEdit_6">
+   <item row="8" column="4" colspan="2">
+    <widget class="QPushButton" name="pushButton_close">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>39</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>关闭窗口</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4">
+    <widget class="QPushButton" name="pushButton_2">
      <property name="minimumSize">
       <size>
        <width>0</width>
        <height>45</height>
       </size>
+     </property>
+     <property name="text">
+      <string>切换版本</string>
      </property>
     </widget>
    </item>
@@ -82,19 +95,6 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="4">
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>45</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>切换版本</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="1">
     <widget class="QLineEdit" name="lineEdit_3">
      <property name="minimumSize">
@@ -115,8 +115,18 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="4">
-    <widget class="QPushButton" name="pushButton_1">
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="4">
+    <widget class="QPushButton" name="pushButton_4">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -128,8 +138,21 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="4">
-    <widget class="QPushButton" name="pushButton_4">
+   <item row="3" column="4">
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>切换版本</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="4">
+    <widget class="QPushButton" name="pushButton_1">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -151,29 +174,6 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="4">
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>45</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>切换版本</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_2">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>45</height>
-      </size>
-     </property>
-    </widget>
-   </item>
    <item row="5" column="1">
     <widget class="QLineEdit" name="lineEdit_5">
      <property name="minimumSize">
@@ -181,19 +181,6 @@
        <width>0</width>
        <height>45</height>
       </size>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="5">
-    <widget class="QPushButton" name="pushButton_7">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>45</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>下载</string>
      </property>
     </widget>
    </item>
@@ -223,8 +210,8 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="5">
-    <widget class="QPushButton" name="pushButton_12">
+   <item row="1" column="5">
+    <widget class="QPushButton" name="pushButton_7">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -236,8 +223,8 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="5">
-    <widget class="QPushButton" name="pushButton_9">
+   <item row="6" column="5">
+    <widget class="QPushButton" name="pushButton_12">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -294,6 +281,32 @@
      </property>
     </widget>
    </item>
+   <item row="3" column="5">
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>下载</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QPushButton" name="pushButton_26">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>进化</string>
+     </property>
+    </widget>
+   </item>
    <item row="3" column="0">
     <widget class="QPushButton" name="pushButton_23">
      <property name="minimumSize">
@@ -304,19 +317,6 @@
      </property>
      <property name="text">
       <string>3.0</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QPushButton" name="pushButton_24">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>45</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>PSM</string>
      </property>
     </widget>
    </item>
@@ -333,8 +333,8 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QPushButton" name="pushButton_26">
+   <item row="4" column="0">
+    <widget class="QPushButton" name="pushButton_24">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -342,7 +342,56 @@
       </size>
      </property>
      <property name="text">
-      <string>进化</string>
+      <string>PSM</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QPushButton" name="pushButton_27">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>X</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QLineEdit" name="lineEdit_7">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="4">
+    <widget class="QPushButton" name="pushButton_13">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>切换版本</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="5">
+    <widget class="QPushButton" name="pushButton_14">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>下载</string>
      </property>
     </widget>
    </item>

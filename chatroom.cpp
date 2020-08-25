@@ -26,7 +26,6 @@ ChatRoom::ChatRoom(QWidget *parent, QTcpSocket *client) :
         QStringList strList=str.split(";");
         ui->textBrowser->setStyleSheet(QString("background:rgb(255,255,255,%1);font-size:16px;").arg(strList.at(3)));
         ui->label_totalPeople->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(3)));
-        qDebug()<<strList.at(3);
         ui->textEdit->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
         ui->lineEdit_name->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
         ui->pushButton_send->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
@@ -54,25 +53,37 @@ ChatRoom::~ChatRoom()
     delete ui;
 }
 
-void ChatRoom::on_getMsg(QString msg)
+void ChatRoom::on_getMsg(QByteArray msg)
 {
-    QStringList msgList = msg.split("&*&");
-    if(msgList.at(0)=="number"){
-        ui->label_totalPeople->setText("在线人数："+msgList.at(1));
-        return;
-    }
+    static QByteArray msgStaticByteArray;
+    msgStaticByteArray += msg;
+    QTextCodec *codec = QTextCodec::codecForName("GB18030");
+    QString msgStatic = codec->toUnicode(msgStaticByteArray);
+    if(msgStatic.endsWith("&**&")) {
+        // 分割多条命令
+        QStringList msgStrList = msgStatic.split("&**&");
+        // 执行每条命令
+        for(QString msgStr : msgStrList) {
+            QStringList msgList = msgStr.split("&*&");
+            if(msgList.at(0)=="number"){
+                ui->label_totalPeople->setText("在线人数："+msgList.at(1));
+            }
 
-    ui->textBrowser->moveCursor(QTextCursor::End);
 
-    if(msgList.at(0)=="all"){
-        ui->textBrowser->setHtml(msgList.at(1));
-        ui->label_totalPeople->setText("在线人数："+msgList.at(2));
-    }
-    else if(msgList.at(0)=="new" || msgList.at(0)=="system"){
-        ui->textBrowser->insertHtml(msgList.at(1));
-    }
+            if(msgList.at(0)=="all"){
+                ui->textBrowser->setHtml(msgList.at(1));
+                ui->label_totalPeople->setText("在线人数："+msgList.at(2));
+                ui->textBrowser->moveCursor(QTextCursor::End);
+            }
+            else if(msgList.at(0)=="new" || msgList.at(0)=="system"){
+                ui->textBrowser->moveCursor(QTextCursor::End);
+                ui->textBrowser->insertHtml(msgList.at(1));
+                ui->textBrowser->moveCursor(QTextCursor::End);
+            }
 
-    ui->textBrowser->moveCursor(QTextCursor::End);
+        }
+        msgStaticByteArray.clear();
+    }
 }
 
 void ChatRoom::on_pushButton_send_clicked()

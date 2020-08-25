@@ -32,6 +32,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
     ui->lineEdit_4->setEnabled(false);
     ui->lineEdit_5->setEnabled(false);
     ui->lineEdit_6->setEnabled(false);
+    ui->lineEdit_7->setEnabled(false);
     ui->pushButton_1->setEnabled(false);
     ui->pushButton_2->setEnabled(false);
     ui->pushButton_3->setEnabled(false);
@@ -44,12 +45,15 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
     ui->pushButton_10->setEnabled(true);
     ui->pushButton_11->setEnabled(true);
     ui->pushButton_12->setEnabled(true);
+    ui->pushButton_13->setEnabled(false);
+    ui->pushButton_14->setEnabled(true);
     ui->pushButton_21->setEnabled(false);
     ui->pushButton_22->setEnabled(false);
     ui->pushButton_23->setEnabled(false);
     ui->pushButton_24->setEnabled(false);
     ui->pushButton_25->setEnabled(false);
     ui->pushButton_26->setEnabled(false);
+    ui->pushButton_27->setEnabled(false);
 
     QString str = settings->value("settings").toString();
     if(!str.isEmpty())
@@ -61,6 +65,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         ui->lineEdit_4->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
         ui->lineEdit_5->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
         ui->lineEdit_6->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
+        ui->lineEdit_7->setStyleSheet(QString("background:rgb(255,255,255,%1);").arg(strList.at(4)));
         ui->pushButton_1->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_2->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_3->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
@@ -73,12 +78,15 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         ui->pushButton_10->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_11->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_12->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_13->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_14->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_21->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_22->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_23->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_24->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_25->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_26->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
+        ui->pushButton_27->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         ui->pushButton_close->setStyleSheet(QString("background:rgb(255,100,100,%1);").arg(strList.at(5)));
         ui->pushButton_selectPath->setStyleSheet(QString("background:rgb(25,255,255,%1);").arg(strList.at(5)));
         this->setWindowOpacity(QString(strList.at(6)).toDouble()/100.0);
@@ -96,14 +104,17 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         case 4:ui->lineEdit_4->setText(path);settings->setValue("PathPSM",path);break;
         case 5:ui->lineEdit_5->setText(path);settings->setValue("PathYouHua",path);break;
         case 6:ui->lineEdit_6->setText(path);settings->setValue("PathJinHua",path);break;
+        case 7:ui->lineEdit_7->setText(path);settings->setValue("PathX",path);break;
         default:;
         }
     }
 
+    isHaveGame.resize(8);
+
     //读取各个版本的路径注册表
-    for(int x=0;x<6;x++)
+    for(int x=0;x<isHaveGame.length()-1;x++)
         isHaveGame[x]=false;
-    isHaveGame[6]=true;
+    isHaveGame[isHaveGame.length()-1]=true;
 
     if(settings->contains("path2.0"))
     {
@@ -189,13 +200,27 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         else
             settings->remove("pathJinHua");
     }
-    for(int x=0;x<6;x++)
+    if(settings->contains("pathX"))
+    {
+        QString path=settings->value("pathX").toString();
+        if(checkPath(path)==7)
+        {
+            ui->lineEdit_7->setText(path);
+            ui->pushButton_13->setEnabled(true);
+            ui->pushButton_27->setEnabled(true);
+            ui->pushButton_14->setEnabled(false);
+            isHaveGame[checkPath(path)-1]=true;
+        }
+        else
+            settings->remove("pathX");
+    }
+    for(int x=0;x<isHaveGame.length()-1;x++)
     {
         if(isHaveGame[x]==true)
             break;
-        if(x==5)
+        if(x==isHaveGame.length()-2)
         {
-            isHaveGame[6]=false;
+            isHaveGame[isHaveGame.length()-1]=false;
         }
     }
 }
@@ -265,6 +290,7 @@ void ChangeVersion::on_pushButton_selectPath_clicked()
     case 4:ui->lineEdit_4->setText(path);ui->pushButton_4->setEnabled(true);ui->pushButton_24->setEnabled(true);ui->pushButton_10->setEnabled(false);settings->setValue("PathPSM",path);break;
     case 5:ui->lineEdit_5->setText(path);ui->pushButton_5->setEnabled(true);ui->pushButton_25->setEnabled(true);ui->pushButton_11->setEnabled(false);settings->setValue("PathYouHua",path);break;
     case 6:ui->lineEdit_6->setText(path);ui->pushButton_6->setEnabled(true);ui->pushButton_26->setEnabled(true);ui->pushButton_12->setEnabled(false);settings->setValue("PathJinHua",path);break;
+    case 7:ui->lineEdit_7->setText(path);ui->pushButton_13->setEnabled(true);ui->pushButton_27->setEnabled(true);ui->pushButton_14->setEnabled(false);settings->setValue("PathJinHua",path);break;
     default:;
     }
     if(myFile.isFileExist("Qt5Widgets.dll",path))
@@ -328,6 +354,10 @@ int ChangeVersion::checkVersion(QString str)
     else if(myFile.isFileExist("mav.dat",str)||myFile.isFileExist("进化版标志.txt",str)||myFile.isFileExist("进化版标",str))
     {
         return 6;
+    }
+    else if(myFile.isFileExist("PPServerConfig.ini",str+"/ppserver")||myFile.isFileExist("X版标志.txt",str)||myFile.isFileExist("X版标志",str))
+    {
+        return 7;
     }
     else if(myFile.isFileExist("Uninstall.exe",str)||myFile.isFileExist("PSM版标志.txt",str)||myFile.isFileExist("PSM版标志",str))
     {
@@ -407,6 +437,16 @@ void ChangeVersion::on_pushButton_6_clicked()
     this->close();
 }
 
+void ChangeVersion::on_pushButton_13_clicked()
+{
+    QString path=ui->lineEdit_7->text();
+    if(checkPath(path)==7)
+    {
+        settings->setValue("popCarPath",path);
+    }
+    this->close();
+}
+
 void ChangeVersion::on_pushButton_7_clicked()
 {
     download(1);
@@ -435,6 +475,11 @@ void ChangeVersion::on_pushButton_11_clicked()
 void ChangeVersion::on_pushButton_12_clicked()
 {
     download(6);
+}
+
+void ChangeVersion::on_pushButton_14_clicked()
+{
+    download(7);
 }
 
 void ChangeVersion::setPushButton(bool on)
@@ -545,8 +590,10 @@ void ChangeVersion::download(int cmd)
         QMessageBox box(this);
         box.addButton("确定",QMessageBox::YesRole);
         box.addButton("取消",QMessageBox::NoRole);
-        box.setText("提取码已经复制到\"剪切板\"\n"
-                    "点击确定跳转到百度云盘");
+//        box.setText("提取码已经复制到\"剪切板\"\n"
+//                    "点击确定跳转到百度云盘");
+        box.setText("点击确定，默认使用\n"
+                    "浏览器直接下载。");
         int res=box.exec();
         if(res==0)
             myFile.openHtmlFile(htmlList.at(1));
@@ -586,4 +633,9 @@ void ChangeVersion::on_pushButton_25_clicked()
 void ChangeVersion::on_pushButton_26_clicked()
 {
     myFile.openDirectory(ui->lineEdit_6->text());
+}
+
+void ChangeVersion::on_pushButton_27_clicked()
+{
+    myFile.openDirectory(ui->lineEdit_7->text());
 }
