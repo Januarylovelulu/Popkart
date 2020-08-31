@@ -66,13 +66,16 @@ void ChatRoom::on_getMsg(QByteArray msg)
         for(QString msgStr : msgStrList) {
             QStringList msgList = msgStr.split("&*&");
             if(msgList.at(0)=="number"){
-                ui->label_totalPeople->setText("在线人数："+msgList.at(1));
+                ui->label_totalPeople->setText("目前在线人数："+msgList.at(1));
+            }
+            if(msgList.at(0)=="highestNumber") {
+                ui->label_highestTotal->setText("最高在线人数："+msgList.at(1)+"\n"+msgList.at(2));
             }
 
 
             if(msgList.at(0)=="all"){
                 ui->textBrowser->setHtml(msgList.at(1));
-                ui->label_totalPeople->setText("在线人数："+msgList.at(2));
+                ui->label_totalPeople->setText("目前在线人数："+msgList.at(2));
                 ui->textBrowser->moveCursor(QTextCursor::End);
             }
             else if(msgList.at(0)=="new" || msgList.at(0)=="system"){

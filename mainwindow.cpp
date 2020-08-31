@@ -30,7 +30,7 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
     ui->textBrowser->insertPlainText("抚琴曲委婉\n");
     ui->textBrowser->setTextColor("black");
     ui->textBrowser->insertPlainText("作者个人的空间：");
-    ui->textBrowser->insertHtml("<a href='http://120.79.52.228'>点击访问</a><br>");
+    ui->textBrowser->insertHtml("<a href='https://lulu.gold'>点击访问</a><br>");
 //    ui->textBrowser->setTextColor("blue");
 //    ui->textBrowser->insertPlainText("www.ruiruiandlulu.online\n");
 //    ui->textBrowser->setTextColor("black");
@@ -81,8 +81,8 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
             settings->setValue("Path3.0",localHostPath);
         else if(version=="PSM")
             settings->setValue("PathPSM",localHostPath);
-        else if(version=="优化")
-            settings->setValue("PathYouHua",localHostPath);
+        else if(version=="Park")
+            settings->setValue("PathPark",localHostPath);
         else if(version=="进化")
             settings->setValue("PathJinHua",localHostPath);
         else if(version=="X")
@@ -112,6 +112,9 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
     {
         ui->textBrowser->insertPlainText("\n没有正确配置文件夹路径,请手动选择\n");
     }
+
+    // Document存放代码的路径
+    localDocumentPath = myFile.pathDocument() + "/Popkart";
 
     //无路径时，按钮灰色
     if(ifHavePath==true)
@@ -220,9 +223,11 @@ MainWindow::MainWindow(int argc, char *argv[], double version) :
         ui->textBrowser->insertPlainText("\n正在检查是否有新版本\n");
     }
 
+    // 服务器连接初始化
     client = new QTcpSocket(this);
     client->connectToHost(localHostNetwork,16161);
     connect(client,&QTcpSocket::readyRead,this,&MainWindow::on_getResFromTcp);
+    ChatRoom::write("updateCarCode&*&" + myFile.readTextFile("carCodeVersion.txt", localDocumentPath), client);
     hasNewMessage = false;
 
     ui->textBrowser->setOpenLinks(false);
@@ -446,7 +451,7 @@ void MainWindow::on_startRepair()
         path="./datX";
         localHostPath += "/ppserver";
     }
-    else if(version=="2.0"||version=="2.1")
+    else if(version=="2.0"||version=="2.1"||version=="Park")
     {
         path="./dat2.0";
     }
@@ -706,9 +711,9 @@ QString MainWindow::checkVersion()
         return "";
     }
 
-    if(myFile.isFileExist("【跑友公社】优化版·超高速改装文件.exe",str)||myFile.isFileExist("优化版标志.txt",str))
+    if(myFile.isFileExist("车库文件（C1-Z7+）.exe",str)||myFile.isFileExist("park版标志.txt",str)||myFile.isFileExist("park版标志",str))
     {
-        return "优化";
+        return "Park";
     }
     else if(myFile.isFileExist("mav.dat",str)||myFile.isFileExist("进化版标志.txt",str))
     {
@@ -773,7 +778,7 @@ void MainWindow::readAdPicture()
         versionAd=3;
     else if(version=="PSM")
         versionAd=4;
-    else if(version=="优化")
+    else if(version=="Park")
         versionAd=5;
     else if(version=="进化")
         versionAd=6;
@@ -1041,6 +1046,10 @@ void MainWindow::on_changeCar_clicked()
             ui->carChangeShow->setText("X系列暂时只能查询");
             return ;
         }
+        if(checkVersion() == "Park"){
+            ui->carChangeShow->setText("Park系列暂时只能查询");
+            return ;
+        }
 
         QString code;
         if(ui->comboBox->currentText()=="更改车辆")
@@ -1125,7 +1134,7 @@ void MainWindow::on_changeCar_clicked()
 
         //修改信息
 
-        str=myFile.readTextFile(ui->comboBox->currentText()+".txt",QString(":/%1").arg(version));
+        str=myFile.readTextFile(ui->comboBox->currentText()+".txt",QString(localDocumentPath + "/%1").arg(version));
         str.replace(" ","");
         if(str=="")
         {
@@ -1174,7 +1183,7 @@ void MainWindow::on_changeCar_clicked()
     else
     {
 
-        QString str=myFile.readTextFile(ui->comboBox->currentText()+".txt",QString(":/%1").arg(version));
+        QString str=myFile.readTextFile(ui->comboBox->currentText()+".txt",QString(localDocumentPath + "/%1").arg(version));
         str.replace(" ","");
         QStringList strList=str.split("\n");
         ui->textBrowser->clear();
@@ -1405,14 +1414,14 @@ void MainWindow::on_carCode_textChanged(const QString &arg1)
     else
     {
         ui->changeCar->setText("更改"+code);
-        if(!myFile.isFileExist(ui->comboBox->currentText()+".txt",QString(":/%1").arg(version)))
+        if(!myFile.isFileExist(ui->comboBox->currentText()+".txt",QString(localDocumentPath + "/%1").arg(version)))
         {
             ui->carChangeShow->setText("\""+ui->comboBox->currentText()
                                              +".txt\"无法读取");
         }
         else
         {
-            str=myFile.readTextFile(ui->comboBox->currentText()+".txt",QString(":/%1").arg(version));
+            str=myFile.readTextFile(ui->comboBox->currentText()+".txt",QString(localDocumentPath + "/%1").arg(version));
             str.replace(" ","");
             QStringList strList=str.split("\n");
 
@@ -1533,17 +1542,48 @@ void MainWindow::on_getReturnHasNewVersion(bool have,QStringList htmlList)
 void MainWindow::on_getResFromTcp()
 {
     QByteArray msg=client->readAll();
-    QTextCodec *codec = QTextCodec::codecForName("GB18030");
-    QStringList msgList = codec->toUnicode(msg).split("&*&");
-//    emit on_postResFromTcp(QString::fromLocal8Bit(msg));
     emit on_postResFromTcp(msg);
-    // system全体广播
-    if(msgList.at(0)=="system" || msgList.at(0)=="new"){
-        if(hasNewMessage == false){
-            ui->textBrowser->insertHtml("<br>收到新的信息：<a href='打开聊天室'>点击查看</a><br>");
-            hasNewMessage = true;
+
+    static QByteArray msgStaticByteArray;
+    msgStaticByteArray += msg;
+    QTextCodec *codec = QTextCodec::codecForName("GB18030");
+    QString msgStatic = codec->toUnicode(msgStaticByteArray);
+    if(msgStatic.endsWith("&**&")) {
+        // 分割多条命令
+        QStringList msgStrList = msgStatic.split("&**&");
+        // 执行每条命令
+        for(QString msgStr : msgStrList) {
+            // system全体广播
+            QStringList msgList = msgStr.split("&*&");
+            QString command = msgList.at(0);
+            if(command == "system" || command == "new"){
+                if(hasNewMessage == false){
+                    ui->textBrowser->insertHtml("<br>收到新的信息：<a href='打开聊天室'>点击查看</a><br>");
+                    hasNewMessage = true;
+                }
+            }
+            else if(command == "updateCarCode") {
+                ui->textBrowser->insertHtml("<br>X车代码有新版，<a href='updateCarCode'>点击更新</a><br>");
+                myFile.writeTextFile(msgList.at(1), "carCodeVersionNew.txt", localDocumentPath);
+            }
         }
-    }
+        msgStaticByteArray.clear();
+    };
+}
+
+void MainWindow::updateCarCode()
+{
+    Download *download = new Download("更改车辆.txt", localDocumentPath + "/X"
+                                      , "https://lulu.gold/views/static/index/更改车辆.txt");
+    myFile.deleteFile("更改车辆.txt", localDocumentPath + "/X");
+    myFile.deleteFile("carCodeVersion.txt", localDocumentPath);
+    myFile.rename("carCodeVersion.txt", localDocumentPath, "carCodeVersionNew.txt");
+    download->on_pushButton_2_clicked();
+    download->exec();
+    delete download;
+    QMessageBox box(this);
+    box.setText("车代码更新完成");
+    box.addButton("好的", QMessageBox::AcceptRole);
 }
 
 void MainWindow::on_DownloadFinish()
@@ -1559,8 +1599,10 @@ void MainWindow::on_DownloadFinish()
 
 void MainWindow::on_openUrl(const QUrl &url)
 {
-    if(url.toString()=="打开聊天室")
+    if(url.toString() == "打开聊天室")
         on_enterChatRoom();
+    else if(url.toString( )== "updateCarCode")
+        updateCarCode();
     else
         QDesktopServices::openUrl(url);
 }

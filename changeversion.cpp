@@ -102,7 +102,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         case 2:ui->lineEdit_2->setText(path);settings->setValue("Path2.1",path);break;
         case 3:ui->lineEdit_3->setText(path);settings->setValue("Path3.0",path);break;
         case 4:ui->lineEdit_4->setText(path);settings->setValue("PathPSM",path);break;
-        case 5:ui->lineEdit_5->setText(path);settings->setValue("PathYouHua",path);break;
+        case 5:ui->lineEdit_5->setText(path);settings->setValue("PathPark",path);break;
         case 6:ui->lineEdit_6->setText(path);settings->setValue("PathJinHua",path);break;
         case 7:ui->lineEdit_7->setText(path);settings->setValue("PathX",path);break;
         default:;
@@ -172,9 +172,9 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
         else
             settings->remove("pathPSM");
     }
-    if(settings->contains("pathYouHua"))
+    if(settings->contains("pathPark"))
     {
-        QString path=settings->value("pathYouHua").toString();
+        QString path=settings->value("pathPark").toString();
         if(checkPath(path)==5)
         {
             ui->lineEdit_5->setText(path);
@@ -184,7 +184,7 @@ ChangeVersion::ChangeVersion(QWidget *parent) :
             isHaveGame[checkPath(path)-1]=true;
         }
         else
-            settings->remove("pathYouHua");
+            settings->remove("pathPark");
     }
     if(settings->contains("pathJinHua"))
     {
@@ -288,9 +288,9 @@ void ChangeVersion::on_pushButton_selectPath_clicked()
     case 2:ui->lineEdit_2->setText(path);ui->pushButton_2->setEnabled(true);ui->pushButton_22->setEnabled(true);ui->pushButton_8->setEnabled(false);settings->setValue("Path2.1",path);break;
     case 3:ui->lineEdit_3->setText(path);ui->pushButton_3->setEnabled(true);ui->pushButton_23->setEnabled(true);ui->pushButton_9->setEnabled(false);settings->setValue("Path3.0",path);break;
     case 4:ui->lineEdit_4->setText(path);ui->pushButton_4->setEnabled(true);ui->pushButton_24->setEnabled(true);ui->pushButton_10->setEnabled(false);settings->setValue("PathPSM",path);break;
-    case 5:ui->lineEdit_5->setText(path);ui->pushButton_5->setEnabled(true);ui->pushButton_25->setEnabled(true);ui->pushButton_11->setEnabled(false);settings->setValue("PathYouHua",path);break;
+    case 5:ui->lineEdit_5->setText(path);ui->pushButton_5->setEnabled(true);ui->pushButton_25->setEnabled(true);ui->pushButton_11->setEnabled(false);settings->setValue("PathPark",path);break;
     case 6:ui->lineEdit_6->setText(path);ui->pushButton_6->setEnabled(true);ui->pushButton_26->setEnabled(true);ui->pushButton_12->setEnabled(false);settings->setValue("PathJinHua",path);break;
-    case 7:ui->lineEdit_7->setText(path);ui->pushButton_13->setEnabled(true);ui->pushButton_27->setEnabled(true);ui->pushButton_14->setEnabled(false);settings->setValue("PathJinHua",path);break;
+    case 7:ui->lineEdit_7->setText(path);ui->pushButton_13->setEnabled(true);ui->pushButton_27->setEnabled(true);ui->pushButton_14->setEnabled(false);settings->setValue("PathX",path);break;
     default:;
     }
     if(myFile.isFileExist("Qt5Widgets.dll",path))
@@ -347,7 +347,7 @@ int ChangeVersion::checkVersion(QString str)
         return 0;
     }
 
-    if(myFile.isFileExist("【跑友公社】优化版·超高速改装文件.exe",str)||myFile.isFileExist("优化版标志.txt",str)||myFile.isFileExist("优化版标志",str))
+    if(myFile.isFileExist("车库文件（C1-Z7+）.exe",str)||myFile.isFileExist("park版标志.txt",str)||myFile.isFileExist("park版标志",str))
     {
         return 5;
     }
@@ -510,6 +510,10 @@ void ChangeVersion::setPushButton(bool on)
             ui->pushButton_12->setEnabled(on);
             ui->pushButton_26->setEnabled(!on);
         }
+        if(ui->lineEdit_6->text().isEmpty()){
+            ui->pushButton_14->setEnabled(on);
+            ui->pushButton_13->setEnabled(!on);
+        }
     }
     else
     {
@@ -519,6 +523,8 @@ void ChangeVersion::setPushButton(bool on)
         ui->pushButton_10->setEnabled(on);
         ui->pushButton_11->setEnabled(on);
         ui->pushButton_12->setEnabled(on);
+        ui->pushButton_13->setEnabled(on);
+        ui->pushButton_14->setEnabled(on);
         ui->pushButton_21->setEnabled(on);
         ui->pushButton_22->setEnabled(on);
         ui->pushButton_23->setEnabled(on);
@@ -532,10 +538,9 @@ void ChangeVersion::download(int cmd)
 {
     setPushButton(false);
     myFile.sleep(50);
-    QString html=myNetwork.getHtmlContent("https://januarylovelulu.github.io/index/index.html");
+    QString html=myNetwork.getHtmlContent("https://lulu.gold/index");
     setPushButton(true);
-    if(html.isEmpty())
-    {
+    if(html.isEmpty()) {
         QMessageBox box(this);
         box.addButton("确定",QMessageBox::YesRole);
         box.setText("未获取到服务器请求\n"
@@ -561,16 +566,14 @@ void ChangeVersion::download(int cmd)
                     "从服务器下载的速度平均为700KB/s\n"
                     "服务器是作者花钱买的，速度慢请见谅");
         int res=box.exec();
-        if(res==0)
-        {
+        if(res==0) {
             QStringList afterNameList=htmlList.at(4).split(".");
             QString afterName=afterNameList.at(afterNameList.length()-1);
             Download *download_=new Download(htmlList.at(0)+"."+afterName,MyFile::pathDesktop(),htmlList.at(4));
             download_->exec();
             delete download_;
         }
-        else if(res==1)
-        {
+        else if(res==1) {
             myFile.clipboardCopy(htmlList.at(3));
             QMessageBox box(this);
             box.addButton("确定",QMessageBox::YesRole);
@@ -579,8 +582,7 @@ void ChangeVersion::download(int cmd)
             box.exec();
             myFile.openHtmlFile(htmlList.at(1));
         }
-        else
-        {
+        else {
 
         }
     }

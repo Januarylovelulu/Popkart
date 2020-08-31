@@ -33,7 +33,7 @@ void ThreadCheckHasNewVersion::run()
     startReady();
     if(myFile.isOnline())
     {
-        QString html=myNetwork.getHtmlContent("https://januarylovelulu.github.io/index/index.html");
+        QString html=myNetwork.getHtmlContent("https://lulu.gold/index");
         if(!html.isEmpty())
         {
             html.replace("\t","");

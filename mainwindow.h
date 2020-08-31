@@ -1,4 +1,5 @@
-﻿#ifndef MAINWINDOW_H
+﻿
+#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -59,6 +60,9 @@ public slots:
     void on_getReturnHasNewVersion(bool have, QStringList htmlList);
     // 获取聊天室服务端返回的信息，
     void on_getResFromTcp();
+    // 在线更新车代码
+    void updateCarCode();
+
     void on_DownloadFinish();
 
     // textBrowser的链接点击事件
@@ -132,6 +136,7 @@ private:
 
     QSettings *settings;
     QString localHostPath;
+    QString localDocumentPath;
     bool ifHavePath;
 
     QMenu *mMenu;

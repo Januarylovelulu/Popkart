@@ -48,8 +48,9 @@ private:
 
     QTimer timerWait; // 发送信息设置时间间隔
 
+public:
     // socket的写
-    void write(QString msg,QTcpSocket *socket);
+    static void write(QString msg,QTcpSocket *socket);
 };
 
 #endif // CHATROOM_H
